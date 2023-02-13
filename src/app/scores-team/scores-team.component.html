@@ -1,1 +1,23 @@
-<p>scores-team works!</p>
+<div class="row">
+  <div class="offset-2 col-8">
+    <h1 class="text-center text-primary my-5">NBA Score tracking App </h1>
+    <div *ngIf="response" class="card my-2">
+      <h1 class="card-title"> {{response.data[0].home_team.full_name}} [{{response.data[0].home_team.abbreviation}}]
+      </h1>
+      <div class="card-body">
+        <h3> {{response.data[0].home_team.conference}} conferance</h3>
+        <hr>
+        <h6> Result of passed 12 days: </h6>
+        <div class="d-block" *ngFor="let data of response?.data">
+          <div class="d-inline">
+            <span class="font-weight-bold"> {{data.home_team.abbreviation}} </span> {{data.home_team_score}} -
+            {{data.visitor_team_score}}
+            <span class="font-weight-bold">{{data.visitor_team.abbreviation}}</span>
+          </div>
+        </div>
+        <br>
+        <button id="backBtn" [routerLink]="['/']" class="btn btn-success"> &#60;&#60; Back to all team stats </button>
+      </div>
+    </div>
+  </div>
+</div>

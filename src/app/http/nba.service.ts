@@ -1,19 +1,29 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ResponseGameApi, ResponseTeamApi } from '../models/response';
+import * as moment from 'moment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NBAService {
-
-  constructor(private http:HttpClient) { }
-
-  getTeam(){
-    return this.http.get(`${environment.baseUrl}/teams`);
+  postFix = '';
+  constructor(private http: HttpClient) {
+    const currentDate = moment();
+    for (let i = 0; i < 12; i++) {
+      currentDate.add(-1, 'day');
+      this.postFix += `&dates[]=${currentDate.format('YYYY-MM-DD')}`;
+    }
   }
-  getGames(){
-    return this.http.get(`${environment.baseUrl}/games?page=0&dates[]=2022-12-06&dates[]=2022-12-05&dates[]=2022-12-04&per_page=12&team_ids[]=26
+
+  getTeam(): Observable<ResponseTeamApi> {
+    return this.http.get<ResponseTeamApi>(`${environment.baseUrl}/teams`);
+  }
+  getGamesByIdTeam(id: number|string): Observable<ResponseGameApi> {
+    return this.http
+      .get<ResponseGameApi>(`${environment.baseUrl}/games?page=0${this.postFix}&per_page=12&team_ids[]=${id}
     `);
   }
 }
