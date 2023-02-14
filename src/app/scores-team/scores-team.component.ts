@@ -9,7 +9,7 @@ import { NBAService } from '../http/nba.service';
   styleUrls: ['./scores-team.component.scss'],
 })
 export class ScoresTeamComponent implements OnInit {
-  teamId: string = '';
+  teamId?: number;
   response?: ResponseGameApi;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -21,13 +21,15 @@ export class ScoresTeamComponent implements OnInit {
     this.getGames();
   }
   getGames() {
-    this.nbaService.getGamesByIdTeam(this.teamId).subscribe(
-      (response) => {
-        this.response = response;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    if (this.teamId) {
+      this.nbaService.getGamesByIdTeam(this.teamId?.toString()).subscribe(
+        (response) => {
+          this.response = response;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 }

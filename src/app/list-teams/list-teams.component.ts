@@ -22,7 +22,7 @@ export class ListTeamsComponent implements OnInit {
     this.createTeamForm();
     this.loadTeams();
   }
-  
+
   createTeamForm() {
     this.teamForm = new FormGroup({
       teamId: new FormControl('', Validators.required),
@@ -47,6 +47,7 @@ export class ListTeamsComponent implements OnInit {
     }
     this.nbaService.getGamesByIdTeam(this.teamForm.value.teamId).subscribe(
       (response) => {
+        response.idTeam=this.teamForm.value.teamId;
         this.gameResponses.push(response);
         // this.teamForm.reset();
         this.submitted = false;

@@ -1,11 +1,16 @@
 <div class="row">
   <div class="offset-2 col-8">
     <h1 class="text-center text-primary my-5">NBA Score tracking App </h1>
-    <div *ngIf="response" class="card my-2">
-      <h1 class="card-title"> {{response.data[0].home_team.full_name}} [{{response.data[0].home_team.abbreviation}}]
+    <div *ngIf="response && teamId" class="card my-2">
+      <h1 *ngIf="response.data[0].home_team.id == teamId" class="card-title">
+        {{response.data[0].home_team.full_name}} [{{response.data[0].home_team.abbreviation}}]
+      </h1>
+      <h1 *ngIf="response.data[0].visitor_team.id == teamId" class="card-title">
+        {{response.data[0].visitor_team.full_name}} [{{response.data[0].visitor_team.abbreviation}}]
       </h1>
       <div class="card-body">
-        <h3> {{response.data[0].home_team.conference}} conferance</h3>
+        <h3 *ngIf="response.data[0].home_team.id == teamId"> {{response.data[0].home_team.conference}} conferance</h3>
+        <h3 *ngIf="response.data[0].visitor_team.id == teamId"> {{response.data[0].visitor_team.conference}} conferance</h3>
         <hr>
         <h6> Result of passed 12 days: </h6>
         <div class="d-block" *ngFor="let data of response?.data">
