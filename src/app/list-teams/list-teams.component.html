@@ -35,8 +35,8 @@
               <button *ngIf="(data.visitor_team_score < data.home_team_score) && data.visitor_team.id==response.idTeam"
                 class="btn btn-danger btn-sm me-1">L</button>
           </div>
-          <h6> Avg pts scored: {{getAvregeScore(i)}}</h6>
-          <h6> Avg pts sconceded:{{getCancededScore(i)}} </h6>
+          <h6> Avg pts scored: {{getAvregeScore(i,response.idTeam)}}</h6>
+          <h6> Avg pts sconceded:{{getCancededScore(i,response.idTeam)}} </h6>
           <img class="img-fluid"
             src="https://interstate21.com/nba-logos/{{response.data[0].home_team.abbreviation}}.png">
           <button id="results{{response.data[0].home_team.abbreviation}}"
@@ -63,8 +63,8 @@
             <button *ngIf="(data.visitor_team_score < data.home_team_score) && data.visitor_team.id==response.idTeam"
               class="btn btn-danger btn-sm me-1">L</button>
           </div>
-          <h6> Avg pts scored: {{getAvregeScore(i)}}</h6>
-          <h6> Avg pts sconceded:{{getCancededScore(i)}} </h6>
+          <h6> Avg pts scored: {{getAvregeScore(i,response.idTeam)}}</h6>
+          <h6> Avg pts sconceded:{{getCancededScore(i,response.idTeam)}} </h6>
           <img class="img-fluid"
             src="https://interstate21.com/nba-logos/{{response.data[0].visitor_team.abbreviation}}.png">
           <button id="results{{response.data[0].visitor_team.abbreviation}}"
