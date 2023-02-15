@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl:""
+  baseUrl:"https://free-nba.p.rapidapi.com"
 };
