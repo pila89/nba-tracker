@@ -30,10 +30,10 @@
               class="btn btn-success btn-sm me-1">W</button>
             <button *ngIf="(data.home_team_score < data.visitor_team_score) && data.home_team.id==response.idTeam"
               class="btn btn-danger btn-sm me-1">L</button>
-              <button *ngIf="(data.visitor_team_score > data.home_team_score) && data.visitor_team.id==response.idTeam"
-                class="btn btn-success btn-sm me-1">W</button>
-              <button *ngIf="(data.visitor_team_score < data.home_team_score) && data.visitor_team.id==response.idTeam"
-                class="btn btn-danger btn-sm me-1">L</button>
+            <button *ngIf="(data.visitor_team_score > data.home_team_score) && data.visitor_team.id==response.idTeam"
+              class="btn btn-success btn-sm me-1">W</button>
+            <button *ngIf="(data.visitor_team_score < data.home_team_score) && data.visitor_team.id==response.idTeam"
+              class="btn btn-danger btn-sm me-1">L</button>
           </div>
           <h6> Avg pts scored: {{getAvregeScore(i,response.idTeam)}}</h6>
           <h6> Avg pts sconceded:{{getCancededScore(i,response.idTeam)}} </h6>

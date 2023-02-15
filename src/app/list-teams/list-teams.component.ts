@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NBAService } from '../http/nba.service';
-import { Games } from '../models/games';
 import { ResponseGameApi, ResponseTeamApi } from '../models/response';
 import { Team } from '../models/teams';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
