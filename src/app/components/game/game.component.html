@@ -1,0 +1,25 @@
+<div class="card my-2">
+  <div class="d-flex justify-content-end">
+    <button id="remove{{game?.abbreviation}}" (click)="deleteTeamGames()" class="pull-right clickable close-icon"
+      data-effect="fadeOut">
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+  <h1 class="card-title">
+    {{game?.full_name}}
+    [{{game?.abbreviation}}]
+  </h1>
+  <div class="card-body">
+    <h3> {{game?.conference}} conferance</h3>
+    <hr>
+    <h6> Result of passed 12 days: </h6>
+    <div class="d-inline" *ngFor="let score of game?.scores">
+      <button [ngClass]="{'btn-danger':score=='L','btn-success':score=='W'}" class="btn btn-sm me-1">{{score}}</button>
+    </div>
+    <h6> Avg pts scored: {{game?.avgScore}}</h6>
+    <h6> Avg pts sconceded:{{game?.cancededScore}} </h6>
+    <img class="img-fluid" [src]="game?.avatar">
+    <button id="results{{game?.abbreviation}}" [routerLink]="['/results',game?.idTeam]" class="btn btn-success">See game
+      results >></button>
+  </div>
+</div>

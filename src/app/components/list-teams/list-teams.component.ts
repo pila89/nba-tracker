@@ -55,8 +55,7 @@ export class ListTeamsComponent implements OnInit {
     }
     this.nbaService.getGamesByIdTeam(this.teamForm.value.teamId).subscribe(
       (response) => {
-        response.idTeam = this.teamForm.value.teamId;
-        this.gameDataService.addGame(response);
+        this.gameDataService.loadGames(response,this.teamForm.value.teamId);
         // this.teamForm.reset();
         this.submitted = false;
       },

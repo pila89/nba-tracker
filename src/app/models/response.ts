@@ -9,7 +9,6 @@ export interface ResponseTeamApi {
 export interface ResponseGameApi {
   data: Games[];
   meta?: Meta;
-  idTeam?:number;
 }
 
 export interface Meta {
