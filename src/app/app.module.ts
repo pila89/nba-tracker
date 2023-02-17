@@ -10,6 +10,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GameComponent } from './components/game/game.component';
 import { ListGameComponent } from './components/list-game/list-game.component';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
+import { ToastService, AngularToastifyModule } from 'angular-toastify';
 
 @NgModule({
   declarations: [
@@ -20,12 +22,23 @@ import { ListGameComponent } from './components/list-game/list-game.component';
     GameComponent,
     ListGameComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule,HttpClientModule,ReactiveFormsModule,FormsModule],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi: true
-  }],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    AngularToastifyModule,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
+    ToastService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

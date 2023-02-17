@@ -7,6 +7,7 @@ import { ScoresTeamComponent } from './components/scores-team/scores-team.compon
 const routes: Routes = [
   { path: '', component: ListTeamsComponent },
   { path: 'results/:teamCode', component: ScoresTeamComponent },
+  { path: '404', component: Page404Component },
   { path: '**', component: Page404Component },
 ];
 
