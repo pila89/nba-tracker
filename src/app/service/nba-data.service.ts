@@ -7,7 +7,7 @@ import { Team } from '../models/teams';
 })
 export class NBADataService {
   private gameResponses: Array<ResponseGameApi> = [];
-  private teams: Team[] = [];
+
   constructor() {
     const data = localStorage.getItem('gameResponses');
     if (data !== null) {
@@ -29,11 +29,5 @@ export class NBADataService {
     localStorage.setItem('gameResponses', JSON.stringify(this.gameResponses));
   }
 
-  getTeams() {
-    return this.teams;
-  }
-
-  setTeams(teams: Team[]) {
-    this.teams = teams;
-  }
+ 
 }

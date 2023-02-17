@@ -3,7 +3,8 @@ import { NBAService } from '../../http/nba.service';
 import { ResponseTeamApi } from '../../models/response';
 import { Team } from '../../models/teams';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NBADataService } from '../../service/nba-data.service';
+import { TeamDataService } from 'src/app/service/team-data.service';
+import { NBADataService } from 'src/app/service/nba-data.service';
 
 @Component({
   selector: 'app-list-teams',
@@ -17,7 +18,8 @@ export class ListTeamsComponent implements OnInit {
 
   constructor(
     private nbaService: NBAService,
-    private nbaData: NBADataService
+    private teamDataService: TeamDataService,
+    private nbaData:NBADataService
   ) {}
 
   ngOnInit(): void {
@@ -32,12 +34,12 @@ export class ListTeamsComponent implements OnInit {
   }
 
   loadTeams() {
-    this.teams = this.nbaData.getTeams();
+    this.teams = this.teamDataService.getTeams();
     if (this.teams.length == 0) {
       this.nbaService.getTeam().subscribe(
         (response: ResponseTeamApi) => {
-          this.nbaData.setTeams(response.data);
-          this.teams = this.nbaData.getTeams();
+          this.teamDataService.setTeams(response.data);
+          this.teams = this.teamDataService.getTeams();
         },
         (error) => {
           console.log(error);
