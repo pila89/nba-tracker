@@ -1,4 +1,5 @@
 <div class="row">
+<!-- select -->
   <div class="offset-2 col-8">
     <h1 class="text-center text-primary my-5">NBA Score tracking App </h1>
     <div [formGroup]="teamForm">
@@ -12,65 +13,13 @@
         Please select a team.
       </div>
     </div>
+<!-- track team button-->
     <button (click)="getGames()" class="btn btn-success my-2" id="trackBtn"> Track Team</button>
   </div>
+
   <div class="offset-1 col-10">
-    <div *ngFor="let response of gameResponses ;let i=index" class="col-4">
-      <div *ngIf="response.data[0].home_team.id==response.idTeam" class="card my-2">
-        <button id="remove{{response.data[0].home_team.abbreviation}}" (click)="deleteTeam(i)"
-          class="pull-right clickable close-icon" data-effect="fadeOut"><i class="fa fa-times"></i></button>
-        <h1 class="card-title"> {{response.data[0].home_team.full_name}} [{{response.data[0].home_team.abbreviation}}]
-        </h1>
-        <div class="card-body">
-          <h3> {{response.data[0].home_team.conference}} conferance</h3>
-          <hr>
-          <h6> Result of passed 12 days: </h6>
-          <div class="d-inline" *ngFor="let data of response?.data">
-            <button *ngIf="(data.home_team_score > data.visitor_team_score) && data.home_team.id==response.idTeam "
-              class="btn btn-success btn-sm me-1">W</button>
-            <button *ngIf="(data.home_team_score < data.visitor_team_score) && data.home_team.id==response.idTeam"
-              class="btn btn-danger btn-sm me-1">L</button>
-            <button *ngIf="(data.visitor_team_score > data.home_team_score) && data.visitor_team.id==response.idTeam"
-              class="btn btn-success btn-sm me-1">W</button>
-            <button *ngIf="(data.visitor_team_score < data.home_team_score) && data.visitor_team.id==response.idTeam"
-              class="btn btn-danger btn-sm me-1">L</button>
-          </div>
-          <h6> Avg pts scored: {{getAvregeScore(i,response.idTeam)}}</h6>
-          <h6> Avg pts sconceded:{{getCancededScore(i,response.idTeam)}} </h6>
-          <img class="img-fluid"
-            src="https://interstate21.com/nba-logos/{{response.data[0].home_team.abbreviation}}.png">
-          <button id="results{{response.data[0].home_team.abbreviation}}"
-            [routerLink]="['/results',teamForm.value.teamId]" class="btn btn-success">See game results >></button>
-        </div>
-      </div>
-      <div *ngIf="response.data[0].visitor_team.id==response.idTeam" class="card my-2">
-        <button id="remove{{response.data[0].visitor_team.abbreviation}}" (click)="deleteTeam(i)"
-          class="pull-right clickable close-icon" data-effect="fadeOut"><i class="fa fa-times"></i></button>
-        <h1 class="card-title"> {{response.data[0].visitor_team.full_name}}
-          [{{response.data[0].visitor_team.abbreviation}}]
-        </h1>
-        <div class="card-body">
-          <h3> {{response.data[0].visitor_team.conference}} conferance</h3>
-          <hr>
-          <h6> Result of passed 12 days: </h6>
-          <div class="d-inline" *ngFor="let data of response?.data">
-            <button *ngIf="(data.home_team_score > data.visitor_team_score) && data.home_team.id==response.idTeam "
-              class="btn btn-success btn-sm me-1">W</button>
-            <button *ngIf="(data.home_team_score < data.visitor_team_score) && data.home_team.id==response.idTeam"
-              class="btn btn-danger btn-sm me-1">L</button>
-            <button *ngIf="(data.visitor_team_score > data.home_team_score) && data.visitor_team.id==response.idTeam"
-              class="btn btn-success btn-sm me-1">W</button>
-            <button *ngIf="(data.visitor_team_score < data.home_team_score) && data.visitor_team.id==response.idTeam"
-              class="btn btn-danger btn-sm me-1">L</button>
-          </div>
-          <h6> Avg pts scored: {{getAvregeScore(i,response.idTeam)}}</h6>
-          <h6> Avg pts sconceded:{{getCancededScore(i,response.idTeam)}} </h6>
-          <img class="img-fluid"
-            src="https://interstate21.com/nba-logos/{{response.data[0].visitor_team.abbreviation}}.png">
-          <button id="results{{response.data[0].visitor_team.abbreviation}}"
-            [routerLink]="['/results',teamForm.value.teamId]" class="btn btn-success">See game results >></button>
-        </div>
-      </div>
+    <div *ngFor="let teamAndGame of teamAndGames ;let i=index" class="col-4">
+      <app-team-card [teamAndGame]="teamAndGame"></app-team-card>
     </div>
   </div>
 </div>

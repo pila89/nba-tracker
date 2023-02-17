@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ScoresTeamComponent } from './scores-team/scores-team.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TeamCardComponent } from './team-card/team-card.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ListTeamsComponent,
     Page404Component,
     ScoresTeamComponent,
+    TeamCardComponent,
   ],
   imports: [BrowserModule, AppRoutingModule,HttpClientModule,ReactiveFormsModule,FormsModule],
   providers: [{

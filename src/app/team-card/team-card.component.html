@@ -1,0 +1,33 @@
+<!-- <div>
+  {{teamAndGame.teamInfos.full_name}}
+  {{teamAndGame.teamInfos.abbreviation}}
+  {{teamAndGame.teamInfos.conference}}
+</div> -->
+
+
+  <div class="card">
+    <button class="pull-right clickable close-icon" data-effect="fadeOut"><i class="fa fa-times"></i></button>
+    <h1 class="card-title"> {{teamAndGame.teamInfos.full_name}} {{teamAndGame.teamInfos.abbreviation}}
+    </h1>
+    <div class="card-body">
+      <h3> {{teamAndGame.teamInfos.conference}} conferance</h3>
+      <hr>
+      <h6> Result of passed 12 days: </h6>
+      <!-- <div class="d-inline" *ngFor="let data of response?.data">
+        <button *ngIf="(data.home_team_score > data.visitor_team_score) && data.home_team.id==response.idTeam "
+          class="btn btn-success btn-sm me-1">W</button>
+        <button *ngIf="(data.home_team_score < data.visitor_team_score) && data.home_team.id==response.idTeam"
+          class="btn btn-danger btn-sm me-1">L</button>
+        <button *ngIf="(data.visitor_team_score > data.home_team_score) && data.visitor_team.id==response.idTeam"
+          class="btn btn-success btn-sm me-1">W</button>
+        <button *ngIf="(data.visitor_team_score < data.home_team_score) && data.visitor_team.id==response.idTeam"
+          class="btn btn-danger btn-sm me-1">L</button>
+      </div> -->
+       <h6> Avg pts scored: {{avrageScore}}</h6>
+      <h6> Avg pts sconceded: </h6>
+     ' <img class="img-fluid" src="https://interstate21.com/nba-logos/{{teamAndGame.teamInfos.abbreviation}}.png">'
+      <button [routerLink]="['/results/',teamAndGame.teamInfos.id]" class="btn btn-success">See game results >></button>
+
+    </div>
+  </div>
+

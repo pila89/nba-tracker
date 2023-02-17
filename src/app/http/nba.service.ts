@@ -18,13 +18,16 @@ export class NBAService {
     }
   }
 
-  getTeam(): Observable<ResponseTeamApi> {
+  getTeams(): Observable<ResponseTeamApi> {
     return this.http.get<ResponseTeamApi>(`${environment.baseUrl}/teams`);
   }
-  
-  getGamesByIdTeam(id: number|string): Observable<ResponseGameApi> {
+
+  getGamesByIdTeam(id: number | string): Observable<ResponseGameApi> {
     return this.http
       .get<ResponseGameApi>(`${environment.baseUrl}/games?page=0${this.postFix}&per_page=12&team_ids[]=${id}
     `);
+  }
+  getTeamById(id: number | string): Observable<any> {
+    return this.http.get<ResponseTeamApi>(`${environment.baseUrl}/teams/${id}`);
   }
 }
