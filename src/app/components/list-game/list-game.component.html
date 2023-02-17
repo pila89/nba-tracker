@@ -1,5 +1,5 @@
 <div class="row">
-  <div *ngFor="let game of games ;let i=index" class="col-4">
+  <div *ngFor="let game of gameDataService.games|async ;let i=index" class="col-4">
     <app-game [game]="game" [index]="i"></app-game>
   </div>
 </div>

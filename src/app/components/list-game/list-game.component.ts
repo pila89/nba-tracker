@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Game } from 'src/app/models/game';
 import { GameDataService } from 'src/app/service/game-data.service';
 
@@ -8,16 +9,15 @@ import { GameDataService } from 'src/app/service/game-data.service';
   styleUrls: ['./list-game.component.scss'],
 })
 export class ListGameComponent implements OnInit {
-  games: Array<Game> = [];
+  // games?: Observable<Game[]>;
 
-  constructor(private gameDataService: GameDataService) {}
+  constructor(public gameDataService: GameDataService) {}
 
   ngOnInit(): void {
     this.loadGames();
   }
   loadGames() {
-    this.games = this.gameDataService.getAllGames();
+    // this.games = this.gameDataService.games;
   }
-
-
+  
 }

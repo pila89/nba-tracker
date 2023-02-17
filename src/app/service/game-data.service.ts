@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Game } from '../models/game';
 import { ResponseGameApi } from '../models/response';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { ToastService } from 'angular-toastify';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameDataService {
-  private _games: Array<Game> = [];
+  // private _games: Array<Game> = [];
+  private _games: BehaviorSubject<Game[] | null> = new BehaviorSubject<
+    Game[] | null
+  >([]);
+  public games = this._games.asObservable();
 
-  constructor() {
+  constructor(private toastService : ToastService) {
     const data = localStorage.getItem('games');
     if (data !== null) {
-      this._games = JSON.parse(data);
+      this._games.next(JSON.parse(data));
     }
   }
 
-  getAllGames() {
-    return this._games;
-  }
-
   loadGames(response: ResponseGameApi, teamId: number) {
-    const gameFound = this._games.find((g) => g.idTeam == teamId);
+    const games = this._games.getValue();
+    const gameFound = games?.find((g) => g.idTeam == teamId);
     if (gameFound == undefined) {
       let game: Game = {};
       game.idTeam = teamId;
@@ -51,16 +54,20 @@ export class GameDataService {
           }
         });
       }
-      this._games.push(game);
-      localStorage.setItem('games', JSON.stringify(this._games));
+      games?.push(game);
+      localStorage.setItem('games', JSON.stringify(games));
+      this._games.next(games);
+      this.toastService.success('Game has been found successfully.');
     } else {
-      alert('Team already exist.');
+      this.toastService.warn('Team already exist.');
     }
   }
 
   deleteGame(i: number) {
-    this._games.splice(i, 1);
-    localStorage.setItem('games', JSON.stringify(this._games));
+    const games = this._games.getValue();
+    games?.splice(i, 1);
+    localStorage.setItem('games', JSON.stringify(games));
+    this._games.next(games);
   }
 
   getAvregeScore(response: ResponseGameApi, idTeam: number): number {

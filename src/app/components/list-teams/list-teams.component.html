@@ -4,7 +4,7 @@
     <div [formGroup]="teamForm">
       <select id="teamInput" class="form-select" formControlName="teamId">
         <option value="">Open this select menu</option>
-        <option *ngFor="let team of teams" [value]="team?.id">
+        <option *ngFor="let team of teams |async" [value]="team?.id">
           {{team?.full_name}}
         </option>
       </select>

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NBAService } from '../../http/nba.service';
-import { ResponseTeamApi } from '../../models/response';
 import { Team } from '../../models/teams';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TeamDataService } from 'src/app/service/team-data.service';
 import { GameDataService } from 'src/app/service/game-data.service';
-import { ToastService } from 'angular-toastify';
+import { TeamDataService } from 'src/app/service/team-data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-teams',
@@ -13,41 +12,25 @@ import { ToastService } from 'angular-toastify';
   styleUrls: ['./list-teams.component.scss'],
 })
 export class ListTeamsComponent implements OnInit {
-  teams?: Team[];
+  teams?: Observable<Team[] | null>;
   teamForm!: FormGroup;
   submitted = false;
 
   constructor(
     private nbaService: NBAService,
     private teamDataService: TeamDataService,
-    private gameDataService: GameDataService,
-    private toastService: ToastService
+    private gameDataService: GameDataService
   ) {}
 
   ngOnInit(): void {
     this.createTeamForm();
-    this.loadTeams();
+    this.teams = this.teamDataService.teams;
   }
 
   createTeamForm() {
     this.teamForm = new FormGroup({
       teamId: new FormControl('', Validators.required),
     });
-  }
-
-  loadTeams() {
-    this.teams = this.teamDataService.getTeams();
-    if (this.teams.length == 0) {
-      this.nbaService.getTeam().subscribe(
-        (response: ResponseTeamApi) => {
-          this.teamDataService.setTeams(response.data);
-          this.teams = this.teamDataService.getTeams();
-        }
-        // (error) => {
-        //   console.log(error);
-        // }
-      );
-    }
   }
 
   getGames() {
@@ -58,7 +41,6 @@ export class ListTeamsComponent implements OnInit {
     this.nbaService.getGamesByIdTeam(this.teamForm.value.teamId).subscribe(
       (response) => {
         this.gameDataService.loadGames(response, this.teamForm.value.teamId);
-        this.toastService.success('Game has been found successfully.');
         // this.teamForm.reset();
         this.submitted = false;
       },

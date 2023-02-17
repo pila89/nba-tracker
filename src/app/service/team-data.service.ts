@@ -1,18 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Team } from '../models/teams';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { NBAService } from '../http/nba.service';
+import { ResponseTeamApi } from '../models/response';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TeamDataService {
-  private _teams: Team[] = [];
-  constructor() { }
+  // private _teams: Subject<Team[]> = new Subject();
+  private _teams: BehaviorSubject<Team[] | null> = new BehaviorSubject<
+    Team[] | null
+  >([]);
+  public teams = this._teams.asObservable();
 
-  getTeams() {
-    return this._teams;
+  constructor(private nbaService: NBAService) {
+    this.loadTeams();
   }
 
-  setTeams(teams: Team[]) {
-    this._teams = teams;
+  private loadTeams() {
+    this.nbaService.getTeam().subscribe((response: ResponseTeamApi) => {
+      this._teams.next(response.data);
+    });
   }
 }
