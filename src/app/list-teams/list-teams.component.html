@@ -40,7 +40,7 @@
           <img class="img-fluid"
             src="https://interstate21.com/nba-logos/{{response.data[0].home_team.abbreviation}}.png">
           <button id="results{{response.data[0].home_team.abbreviation}}"
-            [routerLink]="['/results',teamForm.value.teamId]" class="btn btn-success">See game results >></button>
+            [routerLink]="['/results',response.idTeam]" class="btn btn-success">See game results >></button>
         </div>
       </div>
       <div *ngIf="response.data[0].visitor_team.id==response.idTeam" class="card my-2">
@@ -68,7 +68,7 @@
           <img class="img-fluid"
             src="https://interstate21.com/nba-logos/{{response.data[0].visitor_team.abbreviation}}.png">
           <button id="results{{response.data[0].visitor_team.abbreviation}}"
-            [routerLink]="['/results',teamForm.value.teamId]" class="btn btn-success">See game results >></button>
+            [routerLink]="['/results',response.idTeam]" class="btn btn-success">See game results >></button>
         </div>
       </div>
     </div>

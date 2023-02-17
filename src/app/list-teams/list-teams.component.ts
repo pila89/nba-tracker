@@ -3,6 +3,7 @@ import { NBAService } from '../http/nba.service';
 import { ResponseGameApi, ResponseTeamApi } from '../models/response';
 import { Team } from '../models/teams';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NBADataService } from '../service/nba-data.service';
 
 @Component({
   selector: 'app-list-teams',
@@ -15,11 +16,15 @@ export class ListTeamsComponent implements OnInit {
   teamForm!: FormGroup;
   submitted = false;
 
-  constructor(private nbaService: NBAService) {}
+  constructor(
+    private nbaService: NBAService,
+    private nbaData: NBADataService
+  ) {}
 
   ngOnInit(): void {
     this.createTeamForm();
     this.loadTeams();
+    this.loadGames();
   }
 
   createTeamForm() {
@@ -29,14 +34,22 @@ export class ListTeamsComponent implements OnInit {
   }
 
   loadTeams() {
-    this.nbaService.getTeam().subscribe(
-      (response: ResponseTeamApi) => {
-        this.teams = response.data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.teams = this.nbaData.getTeams();
+    if (this.teams.length == 0) {
+      this.nbaService.getTeam().subscribe(
+        (response: ResponseTeamApi) => {
+          this.nbaData.setTeams(response.data);
+          this.teams = this.nbaData.getTeams();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  loadGames() {
+    this.gameResponses = this.nbaData.getAllGames();
   }
 
   getGames() {
@@ -47,7 +60,7 @@ export class ListTeamsComponent implements OnInit {
     this.nbaService.getGamesByIdTeam(this.teamForm.value.teamId).subscribe(
       (response) => {
         response.idTeam = this.teamForm.value.teamId;
-        this.gameResponses.push(response);
+        this.nbaData.addGame(response);
         // this.teamForm.reset();
         this.submitted = false;
       },
@@ -58,7 +71,7 @@ export class ListTeamsComponent implements OnInit {
   }
 
   deleteTeam(i: number) {
-    this.gameResponses.splice(i, 1);
+    this.nbaData.deleteGame(i);
   }
 
   getAvregeScore(i: number, idTeam: number | undefined): number {
