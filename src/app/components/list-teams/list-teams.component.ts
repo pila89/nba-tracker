@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NBAService } from '../http/nba.service';
-import { ResponseGameApi, ResponseTeamApi } from '../models/response';
-import { Team } from '../models/teams';
+import { NBAService } from '../../http/nba.service';
+import { ResponseGameApi, ResponseTeamApi } from '../../models/response';
+import { Team } from '../../models/teams';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NBADataService } from '../service/nba-data.service';
+import { NBADataService } from '../../service/nba-data.service';
 
 @Component({
   selector: 'app-list-teams',

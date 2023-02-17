@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Page404Component } from './page404/page404.component';
-import { ListTeamsComponent } from './list-teams/list-teams.component';
-import { ScoresTeamComponent } from './scores-team/scores-team.component';
+import { Page404Component } from './components/page404/page404.component';
+import { ListTeamsComponent } from './components/list-teams/list-teams.component';
+import { ScoresTeamComponent } from './components/scores-team/scores-team.component';
 
 const routes: Routes = [
   { path: '', component: ListTeamsComponent },

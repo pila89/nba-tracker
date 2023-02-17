@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ResponseGameApi } from '../models/response';
-import { NBAService } from '../http/nba.service';
+import { ResponseGameApi } from '../../models/response';
+import { NBAService } from '../../http/nba.service';
 
 @Component({
   selector: 'app-scores-team',
