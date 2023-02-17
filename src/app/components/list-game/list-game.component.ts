@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResponseGameApi } from 'src/app/models/response';
-import { NBADataService } from 'src/app/service/nba-data.service';
+import { GameDataService } from 'src/app/service/game-data.service';
 
 @Component({
   selector: 'app-list-game',
@@ -10,17 +10,17 @@ import { NBADataService } from 'src/app/service/nba-data.service';
 export class ListGameComponent implements OnInit {
   gameResponses: Array<ResponseGameApi> = [];
 
-  constructor(private nbaData: NBADataService) {}
+  constructor(private gameDataService: GameDataService) {}
 
   ngOnInit(): void {
     this.loadGames();
   }
   loadGames() {
-    this.gameResponses = this.nbaData.getAllGames();
+    this.gameResponses = this.gameDataService.getAllGames();
   }
 
   deleteTeam(i: number) {
-    this.nbaData.deleteGame(i);
+    this.gameDataService.deleteGame(i);
   }
 
   getAvregeScore(i: number, idTeam: number | undefined): number {
